@@ -32,6 +32,7 @@ const AddForm = () => {
           value={message}
           required
         />
+        <input type='submit' value='Add' className='btn btn-primary btn-sm col-2' />
       </div>
     </form>
   );
