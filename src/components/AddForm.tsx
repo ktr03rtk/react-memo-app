@@ -15,7 +15,7 @@ const AddForm = () => {
   const doAction = () => {
     const data: Memo = {
       message: message,
-      createdAt: new Date(),
+      createdAt: Date(),
     };
     memo.unshift(data);
     setMemo(memo);
