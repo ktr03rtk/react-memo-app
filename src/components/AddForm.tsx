@@ -1,13 +1,16 @@
 import { useState } from 'react';
 
-import usePersist from '../Persist';
-
 import type { Memo } from '../types/memo';
 
-const AddForm = () => {
-  const [memo, setMemo] = usePersist<Memo[]>('memo', []);
+type AddProperties = {
+  memos: Memo[];
+  setMemos: (val: Memo[]) => void;
+  setMode: (val: string) => void;
+};
+
+const AddForm = (props: AddProperties) => {
+  const { memos, setMemos, setMode } = props;
   const [message, setMessage] = useState('');
-  const [mode, setMode] = usePersist<string>('mode', 'find');
 
   const doChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -18,8 +21,8 @@ const AddForm = () => {
       message: message,
       createdAt: Date(),
     };
-    memo.unshift(data);
-    setMemo(memo);
+    memos.unshift(data);
+    setMemos(memos);
     setMessage('');
     setMode('default');
   };
@@ -27,13 +30,7 @@ const AddForm = () => {
   return (
     <form onSubmit={doAction} action=''>
       <div className='form-group row'>
-        <input
-          type='text'
-          className='form-control-sm col'
-          onChange={doChange}
-          value={message}
-          required
-        />
+        <input type='text' className='form-control-sm col' onChange={doChange} value={message} required />
         <input type='submit' value='Add' className='btn btn-primary btn-sm col-2' />
       </div>
     </form>

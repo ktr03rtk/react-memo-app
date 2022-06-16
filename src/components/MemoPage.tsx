@@ -1,26 +1,29 @@
-import usePersist from '../Persist';
 import Item from './Item';
 
 import type { Memo } from '../types/memo';
 
-const MemoPage = () => {
-  const [memo, setMemo] = usePersist<Memo[]>('memo', []);
-  const [fmemo, setFMemo] = usePersist<Memo[]>('findMemo', []);
-  const [mode, setMode] = usePersist<string>('mode', 'default');
+type MemoPageProperties = {
+  memos: Memo[];
+  fmemos: Memo[];
+  mode: string;
+};
+
+const MemoPage = (props: MemoPageProperties) => {
+  const { memos, fmemos, mode } = props;
 
   let data: JSX.Element[] = [];
 
   switch (mode) {
     case 'default':
-      data = memo.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
+      data = memos.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
       break;
 
     case 'find':
-      data = fmemo.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
+      data = fmemos.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
       break;
 
     default:
-      data = memo.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
+      data = memos.map((value, key) => <Item key={value.message} memo={value} index={key + 1} />);
       break;
   }
 

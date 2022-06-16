@@ -1,28 +1,30 @@
-import { useState } from 'react';
-
-import usePersist from '../Persist';
-
 import type { Memo } from '../types/memo';
 
-const DelForm = () => {
-  const [memo, setMemo] = usePersist<Memo[]>('memo', []);
-  const [num, setNum] = useState(0);
-  const [mode, setMode] = usePersist<string>('mode', 'default');
+type DelProperties = {
+  memos: Memo[];
+  setMemos: (val: Memo[]) => void;
+  num: number;
+  setNum: React.Dispatch<React.SetStateAction<number>>;
+  setMode: (val: string) => void;
+};
+
+const DelForm = (props: DelProperties) => {
+  const { memos, setMemos, num, setNum, setMode } = props;
 
   const doChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setNum(Number(e.target.value));
   };
 
   const doAction = () => {
-    const res = memo.filter((item, key) => {
+    const res = memos.filter((item, key) => {
       return key != num;
     });
-    setMemo(res);
+    setMemos(res);
     setNum(0);
     setMode('default');
   };
 
-  const items = memo.map((value, key) => (
+  const items = memos.map((value, key) => (
     <option key={key} value={key}>
       {value.message.substring(0, 10)}
     </option>

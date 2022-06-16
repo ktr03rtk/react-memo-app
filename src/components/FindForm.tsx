@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-import usePersist from '../Persist';
-
 import type { Memo } from '../types/memo';
 
-const FindForm = () => {
-  const [memo, setMemo] = usePersist<Memo[]>('memo', []);
-  const [fmemo, setFMemo] = usePersist<Memo[]>('findMemo', []);
+type FindProperties = {
+  memos: Memo[];
+  setFMemos: (val: Memo[]) => void;
+  setMode: (val: string) => void;
+};
+
+const FindForm = (props: FindProperties) => {
+  const { memos, setFMemos, setMode } = props;
   const [message, setMessage] = useState('');
-  const [mode, setMode] = usePersist<string>('mode', 'find');
 
   const doChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -20,10 +22,10 @@ const FindForm = () => {
       return;
     }
 
-    const res = memo.filter((item, key) => {
+    const res = memos.filter((item) => {
       return item.message.includes(message);
     });
-    setFMemo(res);
+    setFMemos(res);
     setMode('find');
     setMessage('');
   };
