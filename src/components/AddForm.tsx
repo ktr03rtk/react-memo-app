@@ -7,6 +7,7 @@ import type { Memo } from '../types/memo';
 const AddForm = () => {
   const [memo, setMemo] = usePersist<Memo[]>('memo', []);
   const [message, setMessage] = useState('');
+  const [mode, setMode] = usePersist<string>('mode', 'find');
 
   const doChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -20,6 +21,7 @@ const AddForm = () => {
     memo.unshift(data);
     setMemo(memo);
     setMessage('');
+    setMode('default');
   };
 
   return (

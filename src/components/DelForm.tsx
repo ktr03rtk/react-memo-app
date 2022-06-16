@@ -7,6 +7,7 @@ import type { Memo } from '../types/memo';
 const DelForm = () => {
   const [memo, setMemo] = usePersist<Memo[]>('memo', []);
   const [num, setNum] = useState(0);
+  const [mode, setMode] = usePersist<string>('mode', 'default');
 
   const doChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setNum(Number(e.target.value));
@@ -18,6 +19,7 @@ const DelForm = () => {
     });
     setMemo(res);
     setNum(0);
+    setMode('default');
   };
 
   const items = memo.map((value, key) => (
