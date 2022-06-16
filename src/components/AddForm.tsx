@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import usePersist from '@/Persist';
-import type { Memo } from '@/types/memo';
+import { useState } from 'react';
+
+import usePersist from '../Persist';
+
+import type { Memo } from '../types/memo';
 
 const AddForm = () => {
   const [memo, setMemo] = usePersist<Memo[]>('memo', []);

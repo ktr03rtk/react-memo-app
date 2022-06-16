@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import usePersist from '@/Persist';
-import type { Memo } from '@/types/memo';
+
+import usePersist from '../Persist';
+
+import type { Memo } from '../types/memo';
 
 const FindForm = () => {
   const [memo, setMemo] = usePersist<Memo[]>('memo', []);
